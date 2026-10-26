@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GMAT Practice Studio</title>
+  <meta name="description" content="分区练习、计时答题与独立评分的 GMAT 练习工作台。" />
+  <link rel="stylesheet" href="styles.css?v=12" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <div><strong>GMAT</strong><small>Practice Studio</small></div>
+      </div>
+      <div class="workspace-switcher"><span class="avatar">L</span><span>我的备考空间</span><span class="chevron">⌄</span></div>
+      <nav class="side-nav" aria-label="主导航">
+        <button class="nav-item active" data-view="dashboard"><span>▦</span>总览</button>
+        <button class="nav-item" data-view="practice"><span>◉</span>开始练习</button>
+        <button class="nav-item" data-view="analytics"><span>◒</span>成绩分析</button>
+        <button class="nav-item" data-view="wrong"><span>✕</span>错题集</button>
+        <button class="nav-item" data-view="library"><span>▤</span>题库管理</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span id="page-kicker">WORKSPACE</span><b>/</b><strong id="page-title">总览</strong></div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="page-intro home-intro"><p class="eyebrow">GMAT PRACTICE</p><h1>选择练习部分</h1><p class="subcopy">选择一个 section 开始练习。</p></div>
+        <div class="section-grid" id="section-cards"></div>
+      </section>
+
+      <section class="view" id="view-practice">
+        <div class="practice-landing"><div><p class="eyebrow">PRACTICE LAB</p><h1>把一部分练到<br/><em>像本能一样。</em></h1><p class="subcopy">选择一个部分，设定你的节奏。每次练习结束后都能看到独立成绩和薄弱点。</p></div><div class="lab-orbit"><div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div><div class="orbit-core">GO<br/><small>FOCUS</small></div></div></div>
+        <div class="setup-panel"><div class="panel-head"><div><p class="eyebrow">CHOOSE YOUR SESSION</p><h2>选择练习模式</h2></div><span class="tiny-note">支持随时暂停</span></div><div class="practice-options" id="practice-options"></div><div class="practice-footer"><div class="info-pill"><span>◷</span> 练习模式默认不计入总分</div><button class="primary-btn" id="start-session">开始练习 <span>→</span></button></div></div>
+      </section>
+
+      <section class="view" id="view-analytics"><div class="page-intro"><p class="eyebrow">PERFORMANCE REPORT</p><h1>成绩分析</h1><p class="subcopy">这里只展示你实际提交过的练习数据。</p></div><div class="analytics-top"><div class="panel total-score-panel"><p class="eyebrow">REAL PRACTICE AVERAGE</p><div class="big-score" id="analytics-average">—</div><span class="positive" id="analytics-count">尚无已完成练习</span><div class="score-bar"><i id="analytics-score-marker" style="left:0%"></i></div><div class="score-scale"><span>0%</span><span>100%</span></div></div><div class="panel skill-panel"><div class="panel-head"><div><p class="eyebrow">SECTION BREAKDOWN</p><h2>分区表现</h2></div><span class="tiny-note">真实记录</span></div><div id="analytics-bars"></div></div></div><div class="panel insights-panel"><div class="panel-head"><div><p class="eyebrow">RECORDED SESSIONS</p><h2>练习记录</h2></div></div><div class="insight-list" id="analytics-session-list"><div class="analytics-empty">完成练习后，这里会显示每次的正确率、用时和题型表现。</div></div></div></section>
+
+      <section class="view" id="view-wrong"><div class="page-intro"><p class="eyebrow">WRONG ANSWERS</p><h1>错题集</h1><p class="subcopy">这里汇总你答错过的题目和对应正解。</p></div><div class="wrong-list" id="wrong-list"><div class="analytics-empty">完成练习后，答错的题目会出现在这里。</div></div></section>
+
+      <section class="view" id="view-library"><div class="page-intro"><p class="eyebrow">QUESTION LIBRARY</p><h1>题库管理</h1><p class="subcopy">题库已经整理为统一题目池，并按分区、题型和难度完成分类。</p></div><div class="panel source-panel"><div class="panel-head"><div><p class="eyebrow">SOURCE POLICY</p><h2>题目来源</h2></div><span class="status-dot">● 已连接</span></div><div class="source-row"><span class="source-logo">GM</span><div><strong>Official / Licensed bank</strong><p>已扫描本地题库目录</p></div><span class="count" id="bank-count">读取中</span></div><div class="bank-breakdown" id="bank-breakdown"></div><div class="notice" id="bank-notice"><span>i</span><p>正在读取分类索引…</p></div></div><div class="panel file-index-panel"><div class="panel-head"><div><p class="eyebrow">CLASSIFIED FILES</p><h2>分类明细</h2></div><span class="tiny-note">按来源文件归档</span></div><div class="file-index" id="bank-file-list"></div></div><div class="panel schema-panel"><div class="panel-head"><div><p class="eyebrow">DATA SCHEMA</p><h2>推荐字段</h2></div></div><pre>{
+  "id": "Q-0001",
+  "section": "quant",
+  "type": "Problem Solving",
+  "difficulty": "medium",
+  "stem": "...",
+  "options": ["A ...", "B ...", "C ...", "D ...", "E ..."],
+  "answer": 2,
+  "explanation": "...",
+  "source": "licensed / official"
+}</pre></div></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="session-modal"><div class="modal"><button class="modal-close" id="close-modal">×</button><p class="eyebrow">SESSION READY</p><h2 id="modal-title">Quantitative Reasoning</h2><p id="modal-copy">本次练习包含 10 道题，建议用时 22 分钟。</p><div class="modal-details"><div><span>题目</span><strong id="modal-count">10</strong></div><div><span>用时</span><strong id="modal-time">22 min</strong></div><div><span>模式</span><strong>练习</strong></div></div><button class="primary-btn full" id="confirm-start">进入练习 <span>→</span></button></div></div>
+
+  <div class="exam-shell" id="exam-shell"><div class="exam-window"><div class="exam-window-chrome"><span>Examsoft</span></div><header class="exam-top"><div class="exam-brand"><strong>Graduate Management Admission Test - Lin</strong></div><div class="exam-progress"><span id="exam-progress-text">Question 1 of 10</span><div class="thin-progress"><i id="exam-progress-bar"></i></div></div><div class="exam-top-right"><span class="exam-countdown">◷ Time Remaining <strong id="exam-timer-top">45:00</strong></span><button class="exam-finish" id="finish-exam">×</button></div></header><div class="exam-body"><aside class="question-rail"><div class="rail-head"><span>题目导航</span></div><div class="rail-grid" id="rail-grid"></div><div class="rail-legend"><span><i class="legend-dot current"></i>当前</span><span><i class="legend-dot answered"></i>已答</span></div></aside><section class="exam-question"><div class="question-meta"><span id="question-type">Data Insights</span></div><div class="question-content"><div class="question-number" id="question-number">01</div><div class="question-main"><div class="question-figure" id="question-figure"></div><p class="question-stem" id="question-stem"></p><div class="answer-list" id="answer-list"></div></div></div><div class="exam-footer"><button class="secondary-btn" id="prev-question">← 上一题</button><div class="timer"><span class="timer-dot"></span><strong id="exam-timer">45:00</strong><small>剩余时间</small></div><button class="primary-btn" id="next-question">Next <span>→</span></button></div></section></div></div></div>
+
+  <div class="review-shell" id="review-shell"><div class="review-card"><div class="review-head"><div><p class="eyebrow">SECTION REVIEW</p><h1>检查你的答案</h1><p>你可以回看所有题目，并修改最多 3 道已提交的答案。</p></div><div class="review-score"><span>已完成</span><strong id="review-completed">0 / 10</strong></div></div><div class="review-layout"><div class="review-grid" id="review-grid"></div><div class="review-summary"><div class="summary-row"><span>已回答</span><strong id="summary-answered">0</strong></div><div class="summary-row"><span>剩余修改次数</span><strong id="summary-edits">3</strong></div><div class="review-hint"><span>i</span><p>点击题号回到对应题目。完成检查后提交本部分。</p></div><button class="primary-btn full" id="submit-section">提交本部分 <span>→</span></button></div></div></div></div>
+
+  <div class="results-shell" id="results-shell"><div class="results-card"><div class="confetti">✦</div><p class="eyebrow">SESSION COMPLETE</p><h1>本组练习结果</h1><p class="subcopy">下面列出每道题的作答情况、正确答案和正解说明。</p><div class="result-score"><strong id="result-score">—</strong><span>本次正确率</span></div><div class="result-stats"><div><span>正确</span><strong id="result-correct">0</strong></div><div><span>用时</span><strong id="result-time">—</strong></div></div><div class="result-review-list" id="result-review-list"></div><div class="result-actions"><button class="secondary-btn" id="back-dashboard">返回总览</button><button class="primary-btn" id="retry-session">再练一次 <span>→</span></button></div></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js?v=17"></script>
+</body>
+</html>
